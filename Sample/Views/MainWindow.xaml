@@ -1,0 +1,33 @@
+﻿<Window
+    x:Class="Sample.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    Title="{Binding Title}"
+    Width="525"
+    Height="350"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="模块列表">
+                <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
+                <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
+                <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
+            </MenuItem>
+            <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
+            <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
+            <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
+        </Menu>
+        <RegionBrowser Grid.Row="1" prism:RegionManager.RegionName="ContentRegion">
+            <RegionBrowser.ContentControlTemplate>
+                <ControlTemplate TargetType="ContentControl">
+                    <TransitioningContent Content="{TemplateBinding Content}" RunHint="All" />
+                </ControlTemplate>
+            </RegionBrowser.ContentControlTemplate>
+        </RegionBrowser>
+    </Grid>
+</Window>
