@@ -18,18 +18,29 @@ namespace Prism.Wpf.Commands
         public IRegionManager RegionManager { get; }
         public string ViewName { get; set; }
         public string RegionName { get; set; }
-        public bool CanExecute(object parameter) => string.IsNullOrEmpty(ViewName) == false;
+        public bool CanExecute(object parameter) => true;
         public void Execute(object parameter)
         {
-            if (string.IsNullOrEmpty(RegionName))
-                this.RegionManager.Regions.FirstOrDefault()?.RequestNavigate(ViewName, i => i.PublichNavigated());
-            else
-                this.RegionManager.RequestNavigate(RegionName, ViewName, i => i.PublichNavigated());
+            var regionName = RegionName;
+            IRegion region = null;
+            if (string.IsNullOrEmpty(regionName))
+                region = this.RegionManager.Regions.FirstOrDefault();
+            else if (this.RegionManager.Regions.ContainsRegionWithName(regionName))
+                region = this.RegionManager.Regions[regionName];
+            if (region != null)
+            {
+                var viewName = ViewName;
+                if (string.IsNullOrEmpty(viewName))
+                    viewName = parameter?.ToString();
+                if (string.IsNullOrEmpty(viewName) == false)
+                    region.RequestNavigate(viewName, i => i.PublichNavigated());
+            }
         }
         public event EventHandler CanExecuteChanged;
     }
     public class NavigateToExtension : InstanceExtenions<NavigateTo>
     {
+        public NavigateToExtension() { }
         public NavigateToExtension(string viewName)
         {
             ViewName = viewName;

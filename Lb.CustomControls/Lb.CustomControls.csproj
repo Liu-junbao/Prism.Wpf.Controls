@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>System.Windows.Controls</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\star.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\star.png" />
+  </ItemGroup>
+
+</Project>

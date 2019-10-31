@@ -6,9 +6,6 @@
     xmlns:local="clr-namespace:Prism.Wpf"
     xmlns:prism="http://prismlibrary.com/">
 
-    <SolidColorBrush x:Key="br.RegionBrowser.Background" Color="#FFCCCCCC" />
-    <SolidColorBrush x:Key="br.RegionBrowser.SelectedBackground" Color="#FFF2F2F2" />
-    <SolidColorBrush x:Key="br.RegionBrowser.MouseOverBackground" Color="#FF9A9DA2" />
     <SolidColorBrush x:Key="br.RegionBrowser.CloseBackground" Color="#FFF76C6C" />
 
     <Style x:Key="st.RegionBrowser.ToggleButton" TargetType="ToggleButton">
@@ -59,9 +56,9 @@
                                 <Path
                                     x:Name="ph"
                                     Data="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z"
-                                    Fill="Black"
+                                    Fill="{TemplateBinding Foreground}"
                                     Stretch="Fill"
-                                    Stroke="{TemplateBinding Foreground}" />
+                                    StrokeThickness="0" />
                             </Border>
                         </Viewbox>
                     </Border>
@@ -95,7 +92,7 @@
                     <Border
                         x:Name="bd"
                         Background="Transparent"
-                        BorderBrush="{StaticResource br.RegionBrowser.MouseOverBackground}"
+                        BorderBrush="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}"
                         BorderThickness="0">
                         <Viewbox Margin="{TemplateBinding Padding}">
                             <Border Width="36" Height="32">
@@ -138,7 +135,7 @@
                     <Border
                         x:Name="bd"
                         Background="Transparent"
-                        BorderBrush="{StaticResource br.RegionBrowser.MouseOverBackground}"
+                        BorderBrush="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}"
                         BorderThickness="0">
                         <Viewbox Margin="{TemplateBinding Padding}">
                             <Border Width="36" Height="32">
@@ -190,7 +187,6 @@
                                     Height="16"
                                     Command="{x:Static local:RegionBrowser.CloseViewCommand}"
                                     CommandParameter="{Binding}"
-                                    Foreground="{StaticResource br.RegionBrowser.Background}"
                                     Style="{StaticResource st.RegionBrowser.CloseButton}"
                                     Visibility="Collapsed" />
                             </Border>
@@ -203,11 +199,11 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsSelected" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="bd" Property="Background" Value="{StaticResource br.RegionBrowser.MouseOverBackground}" />
+                            <Setter TargetName="bd" Property="Background" Value="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}" />
                             <Setter TargetName="bt" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="bd" Property="Background" Value="{StaticResource br.RegionBrowser.SelectedBackground}" />
+                            <Setter TargetName="bd" Property="Background" Value="{Binding ContentBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}" />
                             <Setter TargetName="bt" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -217,7 +213,7 @@
     </Style>
 
     <Style x:Key="st.ListBox.Header" TargetType="ListBox">
-        <Setter Property="Background" Value="{StaticResource br.RegionBrowser.Background}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
@@ -257,7 +253,6 @@
                                     Height="16"
                                     Command="{x:Static local:RegionBrowser.CloseViewCommand}"
                                     CommandParameter="{Binding}"
-                                    Foreground="{StaticResource br.RegionBrowser.Background}"
                                     Style="{StaticResource st.RegionBrowser.CloseButton}"
                                     Visibility="Collapsed" />
                             </Border>
@@ -270,11 +265,11 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsSelected" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="bd" Property="Background" Value="{StaticResource br.RegionBrowser.MouseOverBackground}" />
+                            <Setter TargetName="bd" Property="Background" Value="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}" />
                             <Setter TargetName="bt" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="bd" Property="Background" Value="{StaticResource br.RegionBrowser.SelectedBackground}" />
+                            <Setter TargetName="bd" Property="Background" Value="{Binding ContentBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}" />
                             <Setter TargetName="bt" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -291,7 +286,7 @@
                     <Border
                         x:Name="bd"
                         Background="Transparent"
-                        BorderBrush="{StaticResource br.RegionBrowser.MouseOverBackground}"
+                        BorderBrush="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}"
                         BorderThickness="0">
                         <Grid>
                             <Popup
@@ -301,8 +296,8 @@
                                 Placement="Bottom"
                                 PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                                 <Border
-                                    Background="{StaticResource br.RegionBrowser.Background}"
-                                    BorderBrush="{StaticResource br.RegionBrowser.MouseOverBackground}"
+                                    Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}"
+                                    BorderBrush="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}"
                                     BorderThickness="0.5,0">
                                     <ItemsPresenter />
                                 </Border>
@@ -319,7 +314,7 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="bd" Property="BorderThickness" Value="1" />
                             <Setter TargetName="tb" Property="Opacity" Value="1" />
-                            <Setter TargetName="bd" Property="Background" Value="{StaticResource br.RegionBrowser.MouseOverBackground}" />
+                            <Setter TargetName="bd" Property="Background" Value="{Binding MouseOverBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:RegionBrowser}}}" />
                         </Trigger>
                         <Trigger Property="IsDropDownOpen" Value="True">
                             <Setter TargetName="tb" Property="Opacity" Value="1" />
@@ -363,6 +358,9 @@
 
     <Style x:Key="st.RegionBrowser" TargetType="local:RegionBrowser">
         <Setter Property="Padding" Value="3" />
+        <Setter Property="Background" Value="#FFCCCCCC" />
+        <Setter Property="ContentBackground" Value="#FFF2F2F2" />
+        <Setter Property="MouseOverBackground" Value="#FF9A9DA2" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="HeaderContainerStyle" Value="{StaticResource st.ListBoxItem.Header}" />
@@ -370,10 +368,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:RegionBrowser">
-                    <Border Background="{StaticResource br.RegionBrowser.Background}">
+                    <Border Background="{TemplateBinding Background}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="32" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <DockPanel>
@@ -393,7 +391,7 @@
                                     SelectedItem="{Binding Content, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     Style="{StaticResource st.ListBox.Header}" />
                             </DockPanel>
-                            <Border Grid.Row="1" Background="{StaticResource br.RegionBrowser.SelectedBackground}">
+                            <Border Grid.Row="1" Background="{TemplateBinding ContentBackground}">
                                 <DockPanel>
                                     <ContentPresenter Content="{TemplateBinding ToolContext}" DockPanel.Dock="Top" />
                                     <ContentControl

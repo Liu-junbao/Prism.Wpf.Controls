@@ -1,21 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using ModuleA.ViewModels;
-using ModuleA.Views;
+﻿using ModuleD.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using Prism.Wpf;
 
-namespace ModuleA
+namespace ModuleD
 {
-    [Module(ModuleName = nameof(ModuleA))]
+    [Module(ModuleName =nameof(ModuleD))]
     public class Module : IModule
     {
-        public  void OnInitialized(IContainerProvider containerProvider)
+        public void OnInitialized(IContainerProvider containerProvider)
         {
-            this.NavigateToView<ViewA>("ContentRegion");
+            containerProvider.RegisterView<ViewA>("MenuRegion");
         }
+
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterView<ViewA>("ContentRegion");

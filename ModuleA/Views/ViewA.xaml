@@ -12,7 +12,7 @@
     RegionBrowserAssist.CanClose="False"
     RegionBrowserAssist.Header="模块A"
     RegionBrowserAssist.Icon="/ModuleA;component/YF.ico"
-    RegionBrowserAssist.ToolTip="模块A的展示内容"
+    RegionBrowserAssist.ToolTip="Home"
     mc:Ignorable="d">
     <Grid>
         <TextBlock

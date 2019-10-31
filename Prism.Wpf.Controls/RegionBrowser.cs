@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,10 @@ namespace Prism.Wpf
             DependencyProperty.Register(nameof(MenuContext), typeof(object), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty ToolContextProperty =
             DependencyProperty.Register(nameof(ToolContext), typeof(object), typeof(RegionBrowser), new PropertyMetadata(null));
+        public static readonly DependencyProperty ContentBackgroundProperty =
+            DependencyProperty.Register(nameof(ContentBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderMouseOverBackgroundProperty =
+            DependencyProperty.Register(nameof(MouseOverBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
 
         static RegionBrowser()
         {
@@ -52,6 +57,20 @@ namespace Prism.Wpf
         {
             get { return (IRegion)GetValue(RegionProperty); }
             protected set { SetValue(RegionPropertyKey, value); }
+        }
+        [Bindable(true)]
+        [Category("Appearance")]
+        public Brush ContentBackground
+        {
+            get { return (Brush)GetValue(ContentBackgroundProperty); }
+            set { SetValue(ContentBackgroundProperty, value); }
+        }
+        [Bindable(true)]
+        [Category("Appearance")]
+        public Brush MouseOverBackground
+        {
+            get { return (Brush)GetValue(HeaderMouseOverBackgroundProperty); }
+            set { SetValue(HeaderMouseOverBackgroundProperty, value); }
         }
         public object MenuContext
         {

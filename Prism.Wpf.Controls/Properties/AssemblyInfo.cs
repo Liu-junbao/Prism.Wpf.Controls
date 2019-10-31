@@ -31,7 +31,9 @@ using System.Windows.Markup;
 
 //[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Prism.Wpf")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Prism.Wpf.Converters")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "Prism.Wpf.Commands")]
+
 [assembly:ThemeInfo(
     ResourceDictionaryLocation.None, //主题特定资源词典所处位置
                              //(未在页面中找到资源时使用，

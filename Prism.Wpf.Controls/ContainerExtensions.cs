@@ -19,9 +19,14 @@ namespace Prism.Wpf
             }
             return default(TInstance);
         }
+
         public static void NavigateToView<TView>(this object obj, string regionName)
         {
             GetInstance<IRegionManager>()?.RequestNavigate(regionName, typeof(TView).FullName.Replace(".", "/"), OnNavigated);
+        }
+        public static void RegisterView<TView>(this IContainerProvider containerProvider,string regionName)
+        {
+            containerProvider.Resolve<IRegionManager>().RegisterViewWithRegion(regionName,typeof(TView));
         }
         public static void RegisterView<TView>(this IContainerRegistry containerRegistry, string regionName)
         {

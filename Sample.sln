@@ -11,7 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleC", "ModuleC\ModuleC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.Wpf.Controls", "Prism.Wpf.Controls\Prism.Wpf.Controls.csproj", "{B8C0E292-AB01-4975-A43F-BDB1031F5EBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{730ACDC8-EF9D-42D4-9D0E-B2A262C56BD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "Sample\Sample.csproj", "{730ACDC8-EF9D-42D4-9D0E-B2A262C56BD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleD", "ModuleD\ModuleD.csproj", "{BFED935B-74D8-423A-AE79-2C373F673E6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lb.CustomControls", "Lb.CustomControls\Lb.CustomControls.csproj", "{77730583-14BF-4908-86AA-71FE196A3028}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{730ACDC8-EF9D-42D4-9D0E-B2A262C56BD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{730ACDC8-EF9D-42D4-9D0E-B2A262C56BD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{730ACDC8-EF9D-42D4-9D0E-B2A262C56BD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFED935B-74D8-423A-AE79-2C373F673E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFED935B-74D8-423A-AE79-2C373F673E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFED935B-74D8-423A-AE79-2C373F673E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFED935B-74D8-423A-AE79-2C373F673E6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77730583-14BF-4908-86AA-71FE196A3028}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77730583-14BF-4908-86AA-71FE196A3028}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77730583-14BF-4908-86AA-71FE196A3028}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77730583-14BF-4908-86AA-71FE196A3028}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
