@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cvt="clr-namespace:Prism.Wpf.Converters"
+    xmlns:cvt="clr-namespace:Prism.Converters"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:local="clr-namespace:Prism.Wpf"
+    xmlns:local="clr-namespace:Prism.Controls"
     xmlns:prism="http://prismlibrary.com/">
 
     <SolidColorBrush x:Key="br.RegionBrowser.CloseBackground" Color="#FFF76C6C" />
@@ -218,9 +218,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
                     <Border Background="{TemplateBinding Background}">
-                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
-                            <ItemsPresenter />
-                        </ScrollViewer>
+                        <ItemsPresenter />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -356,6 +354,20 @@
         </StackPanel>
     </DataTemplate>
 
+    <ControlTemplate x:Key="st.ScrollViewer.Header" TargetType="{x:Type ScrollViewer}">
+        <ScrollContentPresenter
+            x:Name="PART_ScrollContentPresenter"
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="{TemplateBinding Padding}"
+            CanContentScroll="{TemplateBinding CanContentScroll}"
+            CanHorizontallyScroll="False"
+            CanVerticallyScroll="False"
+            Content="{TemplateBinding Content}"
+            ContentTemplate="{TemplateBinding ContentTemplate}" />
+    </ControlTemplate>
+
+
     <Style x:Key="st.RegionBrowser" TargetType="local:RegionBrowser">
         <Setter Property="Padding" Value="3" />
         <Setter Property="Background" Value="#FFCCCCCC" />
@@ -381,15 +393,22 @@
                                     ItemContainerStyle="{TemplateBinding DropDownHeaderContainerStyle}"
                                     ItemTemplate="{StaticResource dt.Header}"
                                     ItemsSource="{TemplateBinding Views}"
-                                    SelectedItem="{Binding Content, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Style="{StaticResource st.ComboBox.Header}" />
-                                <ListBox
-                                    x:Name="PART_Header"
-                                    ItemContainerStyle="{TemplateBinding HeaderContainerStyle}"
-                                    ItemTemplate="{StaticResource dt.Header}"
-                                    ItemsSource="{TemplateBinding Views}"
-                                    SelectedItem="{Binding Content, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                    Style="{StaticResource st.ListBox.Header}" />
+                                    
+                                    Style="{StaticResource st.ComboBox.Header}"
+                                    Visibility="{Binding ElementName=sv, Path=ComputedHorizontalScrollBarVisibility}" />
+                                <ScrollViewer
+                                    x:Name="sv"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    Template="{StaticResource st.ScrollViewer.Header}"
+                                    VerticalScrollBarVisibility="Disabled">
+                                    <ListBox
+                                        x:Name="PART_Header"
+                                        ItemContainerStyle="{TemplateBinding HeaderContainerStyle}"
+                                        ItemTemplate="{StaticResource dt.Header}"
+                                        ItemsSource="{TemplateBinding Views}"
+                                        SelectedItem="{TemplateBinding Content}"
+                                        Style="{StaticResource st.ListBox.Header}" />
+                                </ScrollViewer>
                             </DockPanel>
                             <Border Grid.Row="1" Background="{TemplateBinding ContentBackground}">
                                 <DockPanel>
@@ -415,4 +434,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

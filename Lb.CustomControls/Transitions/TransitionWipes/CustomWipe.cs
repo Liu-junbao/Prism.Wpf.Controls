@@ -18,7 +18,7 @@ namespace System.Windows.Controls
     [StyleTypedProperty(Property = "OldStyle", StyleTargetType = typeof(TransitionerSlide))]
     [StyleTypedProperty(Property = "OldStyle", StyleTargetType = typeof(TransitionerSlide))]
     [TypeConverter(typeof(CustomWipeTypeConverter))]
-    public class CustomWipe :BaseWipe
+    public class CustomWipe :TransitionWipeBase
     {
         public Style FromStyle { get; set; }
         public Style ToStyle { get; set; }
@@ -118,7 +118,7 @@ namespace System.Windows.Controls
     }
     public class CustomWipeTypeConverter:TypeConverter
     {
-        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri("/Lb.Transitions;component/Themes/Themes.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri("/Lb.CustomControls;component/Themes/Themes.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
         private static TValue GetValue<TValue>(string name) where TValue : class => _customWipeResources[name] as TValue;
         public static CustomWipe GetCustomWipe(CustomKind kind)
         {

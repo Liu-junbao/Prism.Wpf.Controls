@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prism.Wpf
+namespace Prism.Ioc
 {
     public static class ContainerExtensions
     {

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls.TransitionWipes;
 
 namespace System.Windows.Controls
 {

@@ -1,16 +1,16 @@
-﻿using ModuleD.Views;
+﻿using ModuleE.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace ModuleD
+namespace ModuleE
 {
-    [Module(ModuleName =nameof(ModuleD))]
+    [Module(ModuleName = nameof(ModuleE))]
     public class Module : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            containerProvider.RegisterView<ViewA>("MenuRegion");
+            containerProvider.NavigateToView<ViewA>("ContentRegion");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

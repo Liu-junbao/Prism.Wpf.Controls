@@ -1,4 +1,6 @@
-﻿using Prism.Regions;
+﻿using Prism.Controls;
+using Prism.Ioc;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Markup;
 
-namespace Prism.Wpf.Commands
+namespace Prism.Commands
 {
     public class NavigateTo : ICommand
     {

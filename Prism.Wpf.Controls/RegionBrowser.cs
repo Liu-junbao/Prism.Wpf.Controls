@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Prism.Wpf
+namespace Prism.Controls
 {
     [TemplatePart(Name =PART_Header,Type =typeof(ListBox))]
     [StyleTypedProperty(Property = nameof(HeaderContainerStyle), StyleTargetType = typeof(ListBoxItem))]
@@ -43,7 +44,11 @@ namespace Prism.Wpf
             DependencyProperty.Register(nameof(ContentBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderMouseOverBackgroundProperty =
             DependencyProperty.Register(nameof(MouseOverBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
-
+        private static void OnActiveViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            RegionBrowser browser = (RegionBrowser)d;
+            browser.OnActiveViewChanged(e.OldValue,e.NewValue);
+        }
         static RegionBrowser()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RegionBrowser), new FrameworkPropertyMetadata(typeof(RegionBrowser)));
@@ -107,33 +112,6 @@ namespace Prism.Wpf
             get { return (IEnumerable)GetValue(ViewsProperty); }
             protected set { SetValue(ViewsPropertyKey, value); }
         }
-        protected override void OnContentChanged(object oldContent, object newContent)
-        {
-            _headerBox?.ScrollIntoView(newContent);
-            base.OnContentChanged(oldContent, newContent);
-        }
-        private void OnCloseViewHandler(object sender, ExecutedRoutedEventArgs e)
-        {
-            var region = Region;
-            if (region?.Views?.Contains(e.Parameter) == true)
-            {
-                region.Remove(e.Parameter);
-                if (region.ActiveViews.Count() == 0)
-                {
-                    var view = region.Views.FirstOrDefault();
-                    if (view != null)
-                    {
-                        region.Activate(view);
-                    }
-                }
-            }
-        }
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            _headerBox = this.Template.FindName(PART_Header, this) as ListBox;
-            ApplyRegion();
-        }
         private void ApplyRegion()
         {
             var regionManager = RegionManager.GetRegionManager(this);
@@ -168,7 +146,7 @@ namespace Prism.Wpf
                     }
                 }
             }
-        }      
+        }
         private void InitializeRegion(IRegion region)
         {
             if (Region == null && region != null)
@@ -177,5 +155,52 @@ namespace Prism.Wpf
                 Views = region.Views;
             }
         }
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _headerBox = this.Template.FindName(PART_Header, this) as ListBox;
+            if (_headerBox != null) _headerBox.SelectionChanged += (s, e) => OnHeaderChanged(_headerBox.SelectedItem);
+            ApplyRegion();
+        }
+        protected void OnHeaderChanged(object header)
+        {
+            if (header != null)
+            {
+                var activeView = Region?.ActiveViews.FirstOrDefault();
+                if (activeView!=header)
+                    Region?.Activate(header);
+            }
+        }
+        protected virtual void OnActiveViewChanged(object oldView, object newView)
+        {
+            if (newView != null)
+            {
+                var activeView = Region?.ActiveViews.FirstOrDefault();
+                if (activeView != newView)
+                    Region?.Activate(newView);
+            }
+        }
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            _headerBox?.ScrollIntoView(newContent);
+            base.OnContentChanged(oldContent, newContent);
+        }
+        private void OnCloseViewHandler(object sender, ExecutedRoutedEventArgs e)
+        {
+            var region = Region;
+            if (region?.Views?.Contains(e.Parameter) == true)
+            {
+                region.Remove(e.Parameter);
+                if (region.ActiveViews.Count() == 0)
+                {
+                    var view = region.Views.FirstOrDefault();
+                    if (view != null)
+                    {
+                        region.Activate(view);
+                    }
+                }
+            }
+        }
+      
     }
 }

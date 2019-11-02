@@ -28,15 +28,6 @@ namespace System.Windows.Controls
             _random = new Random();
         }
         public List<ITransitionWipe> Wipes { get; }
-        public bool Match(TransitionerSlideBox transitioner, TransitionerSlide oldSlide, TransitionerSlide newSlide, int oldIndex, int newIndex, int count, out ITransitionWipe wipe)
-        {
-            if (Wipes.Count > 0)
-                wipe = Wipes[_random.Next(0, Wipes.Count - 1)];
-            else
-                wipe = _wipes[_random.Next(0, _wipes.Count - 1)];
-            return true;
-        }
-
         public ITransitionWipe ProviderTransitionWipeFrom(FrameworkElement oldPresenter, FrameworkElement newPresenter, ITransitionContainer container)
         {
             if (Wipes.Count > 0)

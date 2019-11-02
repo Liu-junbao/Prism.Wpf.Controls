@@ -4,20 +4,23 @@ using System.Windows.Media.Animation;
 
 namespace System.Windows.Controls
 {
-    public class FadeWipe :BaseWipe
+    public class FadeWipe :TransitionWipeBase
     {
         private readonly SineEase _sineEase = new SineEase();
 
         /// <summary>
         /// Duration of the animation
         /// </summary>
-        public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(0.5);
+        public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(3);
 
         public override void Wipe(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer zIndexController)
         {
             if (oldPresenter == null) throw new ArgumentNullException(nameof(oldPresenter));
             if (newPresenter == null) throw new ArgumentNullException(nameof(newPresenter));
             if (zIndexController == null) throw new ArgumentNullException(nameof(zIndexController));
+
+            Storyboard storyboard = new Storyboard();
+            Storyboard.SetTarget
 
             // Set up time points
             var zeroKeyTime = KeyTime.FromTimeSpan(TimeSpan.Zero);
@@ -40,18 +43,18 @@ namespace System.Windows.Controls
             // Set up events
             this.CompletedWithEnd(toAnimation,zIndexController,()=>
             {
+                newPresenter.Opacity = 1;
                 newPresenter.BeginAnimation(UIElement.OpacityProperty, null);
                 oldPresenter.Opacity = 1;
-                newPresenter.Opacity = 1;
                 oldPresenter.Visibility = Visibility.Hidden;
             });
 
             this.CompletedWithEnd(fromAnimation,zIndexController,()=>
             {
-                oldPresenter.BeginAnimation(UIElement.OpacityProperty, null);
-                oldPresenter.Opacity = 1;
-                newPresenter.BeginAnimation(UIElement.OpacityProperty, toAnimation);
                 oldPresenter.Visibility = Visibility.Hidden;
+                oldPresenter.Opacity = 1;
+                oldPresenter.BeginAnimation(UIElement.OpacityProperty, null);
+                newPresenter.BeginAnimation(UIElement.OpacityProperty, toAnimation);
             });
 
             // Animate

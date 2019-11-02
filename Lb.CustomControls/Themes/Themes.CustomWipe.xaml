@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:System.Windows.Controls"
     xmlns:wipe="clr-namespace:System.Windows.Controls">
+
+
+
     <Storyboard x:Key="Checkerboard.To">
         <RectAnimation
             BeginTime="0:0:0"
@@ -241,10 +244,7 @@
             To="1"
             Duration="0:0:0.4" />
     </Storyboard>
-
-
-
-    <Style x:Key="st.Checkerboard.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Checkerboard.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <DrawingBrush
@@ -268,7 +268,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="st.DiagonalWipe.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.DiagonalWipe.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -278,7 +278,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="st.Diamonds.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Diamonds.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <DrawingBrush
@@ -301,7 +301,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="st.Dots.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Dots.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <DrawingBrush
@@ -324,7 +324,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="st.DoubleRotateWipe.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.DoubleRotateWipe.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <DrawingBrush>
@@ -359,7 +359,15 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.FadeAndBlur.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.FadeAndBlur.To" TargetType="FrameworkElement">
+        <Setter Property="UIElement.RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="UIElement.RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="st.FadeAndGrow.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.RenderTransformOrigin" Value="0.5, 0.5" />
         <Setter Property="UIElement.RenderTransform">
             <Setter.Value>
@@ -368,17 +376,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.FadeAndGrow.To" TargetType="{x:Type local:TransitionerSlide}">
-        <Setter Property="UIElement.RenderTransformOrigin" Value="0.5, 0.5" />
-        <Setter Property="UIElement.RenderTransform">
-            <Setter.Value>
-                <ScaleTransform ScaleX="1" ScaleY="1" />
-            </Setter.Value>
-        </Setter>
-    </Style>
 
-
-    <Style x:Key="st.HorizontalBlinds.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.HorizontalBlinds.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="0,0" EndPoint="0,30">
@@ -389,7 +388,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.HorizontalWipe.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.HorizontalWipe.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -400,7 +399,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.Melt.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Melt.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="1,0">
@@ -420,7 +419,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.RotateWipe.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.RotateWipe.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush EndPoint="1,0">
@@ -434,10 +433,10 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.Star.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Star.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
-                <ImageBrush ImageSource="/Lb.Transitions;component/Images/star.png" Stretch="Uniform">
+                <ImageBrush ImageSource="/Lb.CustomControls;component/Images/star.png" Stretch="Uniform">
                     <ImageBrush.RelativeTransform>
                         <TransformGroup>
                             <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="0" ScaleY="0" />
@@ -449,7 +448,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.VerticalBlinds.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.VerticalBlinds.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="0,0" EndPoint="30,0">
@@ -460,7 +459,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.VerticalWipe.To" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.VerticalWipe.To" TargetType="FrameworkElement">
         <Setter Property="UIElement.OpacityMask">
             <Setter.Value>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -471,7 +470,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.FadeAndBlur.From" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.FadeAndBlur.From" TargetType="FrameworkElement">
         <Setter Property="UIElement.BitmapEffect">
             <Setter.Value>
                 <BlurBitmapEffect Radius="0" />
@@ -479,7 +478,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.FadeAndGrow.From" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.FadeAndGrow.From" TargetType="FrameworkElement">
         <Setter Property="UIElement.RenderTransformOrigin" Value="0.5, 0.5" />
         <Setter Property="UIElement.RenderTransform">
             <Setter.Value>
@@ -488,7 +487,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="st.Roll.From" TargetType="{x:Type local:TransitionerSlide}">
+    <Style x:Key="st.Roll.From" TargetType="FrameworkElement">
         <Setter Property="UIElement.RenderTransformOrigin" Value="0,1" />
         <Setter Property="UIElement.RenderTransform">
             <Setter.Value>

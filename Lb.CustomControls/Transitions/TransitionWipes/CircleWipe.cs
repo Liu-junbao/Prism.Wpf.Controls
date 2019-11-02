@@ -5,7 +5,7 @@ using System.Windows.Media.Animation;
 
 namespace System.Windows.Controls
 {
-    public class CircleWipe : BaseWipe
+    public class CircleWipe : TransitionWipeBase
     {
         public override void Wipe(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer zIndexController)
         {

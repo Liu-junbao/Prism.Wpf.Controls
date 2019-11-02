@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B8C0E292-AB01-4975-A43F-BDB1031F5EBB}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>Prism.Wpf</RootNamespace>
+    <RootNamespace>Prism.Controls</RootNamespace>
     <AssemblyName>Prism.Wpf.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

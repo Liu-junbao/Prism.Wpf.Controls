@@ -8,21 +8,21 @@ using System.Windows.Media.Animation;
 
 namespace System.Windows.Controls
 {
-    public abstract class BaseWipe : ITransitionWipe
+    public abstract class TransitionWipeBase : ITransitionWipe
     {
+       
         public abstract void Wipe(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer zIndexController);
-
-        protected void CompletedWithEnd(Timeline timeline,ITransitionContainer zIndexController,Action completedAction)
+        protected void CompletedWithEnd(Storyboard storyboard,ITransitionContainer container,Action completedAction)
         {
             EventHandler endHandler = null;
             endHandler = (s, e) =>
             {
                 completedAction?.Invoke();
-                timeline.Completed -= endHandler;
-                zIndexController.TransitionChanged -= endHandler;
+                storyboard.Completed -= endHandler;
+                container.TransitionChanged -= endHandler;
             };
-            timeline.Completed += endHandler;
-            zIndexController.TransitionChanged += endHandler;        
+            storyboard.Completed += endHandler;
+            container.TransitionChanged += endHandler;        
         }
     }
 }

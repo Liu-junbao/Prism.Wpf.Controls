@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Controls;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace Prism.Wpf.Converters
+namespace Prism.Converters
 {
     public class InstanceToViewNameConverter : IValueConverter
     {

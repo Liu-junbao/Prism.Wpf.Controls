@@ -8,7 +8,6 @@ namespace System.Windows.Controls
         event EventHandler TransitionChanged;
         void SetZIndexOrderBy(params FrameworkElement[] presenters);
         int Indexof(FrameworkElement presenter);
-        int Indexof(object item);
-        FrameworkElement FindPresenter(object item);
+        object ItemFromContainer(FrameworkElement presenter);
     }
 }

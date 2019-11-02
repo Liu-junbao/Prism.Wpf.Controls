@@ -5,7 +5,7 @@ using System.Windows.Media.Animation;
 
 namespace System.Windows.Controls
 {
-    public class SlideOutWipe :BaseWipe
+    public class SlideOutWipe :TransitionWipeBase
     {
         private readonly SineEase _sineEase = new SineEase();
 

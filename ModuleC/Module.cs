@@ -2,7 +2,6 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
-using Prism.Wpf;
 
 namespace ModuleC
 {

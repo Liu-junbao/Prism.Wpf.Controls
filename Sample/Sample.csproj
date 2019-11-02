@@ -7,7 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="4.1.0" />
-    <PackageReference Include="Lb.Transitions" Version="1.0.2" />
     <PackageReference Include="Prism.Unity" Version="7.2.0.1367" />
   </ItemGroup>
   <ItemGroup>
@@ -16,6 +15,7 @@
     <ProjectReference Include="..\ModuleB\ModuleB.csproj" />
     <ProjectReference Include="..\ModuleC\ModuleC.csproj" />
     <ProjectReference Include="..\ModuleD\ModuleD.csproj" />
+    <ProjectReference Include="..\ModuleE\ModuleE.csproj" />
     <ProjectReference Include="..\Prism.Wpf.Controls\Prism.Wpf.Controls.csproj" />
   </ItemGroup>
 </Project>

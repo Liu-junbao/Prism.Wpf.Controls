@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Prism.Wpf.Converters
+namespace Prism.Converters
 {
     class NULLToVisibilityConverter : IValueConverter
     {

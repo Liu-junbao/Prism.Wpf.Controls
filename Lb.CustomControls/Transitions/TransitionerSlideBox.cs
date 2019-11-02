@@ -240,7 +240,7 @@ namespace System.Windows.Controls
         }
         void ITransitionContainer.SetZIndexOrderBy(params FrameworkElement[] presenters)
         {
-       
+
             DoStack(presenters);
         }
         private static void DoStack(params FrameworkElement[] presenters)
@@ -257,13 +257,9 @@ namespace System.Windows.Controls
         {
             return this.ItemContainerGenerator.IndexFromContainer(presenter);
         }
-        public int Indexof(object item)
+        public object ItemFromContainer(FrameworkElement presenter)
         {
-            return this.ItemContainerGenerator.IndexFromContainer(this.ItemContainerGenerator.ContainerFromItem(item));
-        }
-        public FrameworkElement FindPresenter(object item)
-        {
-            return this.ItemContainerGenerator.ContainerFromItem(item) as FrameworkElement;
+            return this.ItemContainerGenerator.ItemFromContainer(presenter);
         }
         public event EventHandler TransitionChanged;
     }

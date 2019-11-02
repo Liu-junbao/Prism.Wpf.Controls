@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Prism.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Prism.Wpf
+namespace Prism
 {
     public class InstanceExtenions<TValue> : MarkupExtension
     {

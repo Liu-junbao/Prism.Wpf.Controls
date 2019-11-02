@@ -1,64 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace System.Windows.Controls
 {
+    [TemplatePart(Name = PART_FontPresenter, Type = typeof(ContentControl))]
+    [TemplatePart(Name = PART_BackPresenter, Type = typeof(ContentControl))]
     public class TransitionerBox : ContentControl, ITransitionContainer
     {
-        public static readonly DependencyProperty WipeProperty =
-           DependencyProperty.Register(nameof(Wipe), typeof(ITransitionWipe), typeof(TransitionerBox), new PropertyMetadata(null));
+        public const string PART_FontPresenter = nameof(PART_FontPresenter);
+        public const string PART_BackPresenter = nameof(PART_BackPresenter);
+        public static readonly DependencyProperty TransitionWipeProperty =
+            DependencyProperty.Register(nameof(TransitionWipe), typeof(ITransitionWipe), typeof(TransitionerBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty TransitionWipeSelectorProperty =
+            DependencyProperty.Register(nameof(TransitionWipeSelector), typeof(ITransitionWipeSelector), typeof(TransitionerBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty TransitionOriginProperty =
+            DependencyProperty.Register(nameof(TransitionOrigin), typeof(Point?), typeof(TransitionerBox), new PropertyMetadata(null));
 
-
-
-        public event EventHandler TransitionChanged;
-        public TransitionerBox()
+        private ContentControl _fontPresenter;
+        private ContentControl _backPresenter;
+        static TransitionerBox()
         {
-            WipeStrategy = new TransitionWipeStrategy();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitionerBox), new FrameworkPropertyMetadata(typeof(TransitionerBox)));
         }
-        public TransitionWipeStrategy WipeStrategy { get; }
-        public ITransitionWipe Wipe
+        public ITransitionWipe TransitionWipe
         {
-            get { return (ITransitionWipe)GetValue(WipeProperty); }
-            set { SetValue(WipeProperty, value); }
+            get { return (ITransitionWipe)GetValue(TransitionWipeProperty); }
+            set { SetValue(TransitionWipeProperty, value); }
         }
-        private void ActivateFrame(FrameworkElement oldPresenter, FrameworkElement newPresenter)
+        public ITransitionWipeSelector TransitionWipeSelector
         {
+            get { return (ITransitionWipeSelector)GetValue(TransitionWipeSelectorProperty); }
+            set { SetValue(TransitionWipeSelectorProperty, value); }
+        }
+        public Point? TransitionOrigin
+        {
+            get { return (Point?)GetValue(TransitionOriginProperty); }
+            set { SetValue(TransitionOriginProperty, value); }
+        }
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            _fontPresenter = this.Template.FindName(PART_FontPresenter, this) as ContentControl;
+            _backPresenter = this.Template.FindName(PART_BackPresenter, this) as ContentControl;
+        }
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+            if (_backPresenter!=null)
+                _backPresenter.Content = oldContent;
+            OnContentChanged();
+        }
+        private void OnContentChanged()
+        {
+            if (this.IsLoaded == false) return;
+            TransitionChanged?.Invoke(this, null);
+            this.ActivateFrame();
+        }
+        private void ActivateFrame()
+        {
+            var oldPresenter = _backPresenter;
+            var newPresenter = _fontPresenter;
             if (!IsLoaded) return;
-            if (newPresenter != null) newPresenter.Visibility = Visibility.Visible;
+            if (oldPresenter != null)
+                oldPresenter.Visibility = Visibility.Visible;
+            if (newPresenter != null)
+                newPresenter.Visibility = Visibility.Visible;
             if (oldPresenter != null && newPresenter != null)
             {
-                ITransitionWipe wipe = null;
-                if (WipeStrategy.Match(this, oldPresenter, newPresenter, unselectedIndex, selectedIndex, count, out wipe) == false)
-                    wipe = selectedIndex > unselectedIndex ? oldPresenter.ForwardWipe : oldPresenter.BackwardWipe;
+                ITransitionWipe wipe = TransitionWipe;
+                if (wipe == null)
+                {
+                    wipe = this.TransitionWipeSelector.ProviderTransitionWipeFrom(oldPresenter, newPresenter, this);
+                }
                 if (wipe != null)
                 {
-                    wipe.Wipe(oldPresenter, newPresenter, GetTransitionOrigin(newPresenter), this);
+                    var origin = TransitionOrigin ?? new Point();
+                    wipe.Wipe(oldPresenter, newPresenter, origin, this);
                 }
                 else
                 {
                     DoStack(newPresenter, oldPresenter);
-                    if (oldPresenter != null) oldPresenter.Visibility = Visibility.Hidden;
+                    if (oldPresenter != null) 
+                        oldPresenter.Visibility = Visibility.Hidden;
                 }
             }
             else if (oldPresenter != null || newPresenter != null)
             {
                 DoStack(oldPresenter ?? newPresenter);
-                if (oldPresenter != null) oldPresenter.Visibility = Visibility.Hidden;
+                if (oldPresenter != null) 
+                    oldPresenter.Visibility = Visibility.Hidden;
             }
-
-            _nextTransitionOrigin = null;
         }
-
-        void ITransitionContainer.Stack(params UIElement[] highestToLowest)
+        void ITransitionContainer.SetZIndexOrderBy(params FrameworkElement[] highestToLowest)
         {
-
             DoStack(highestToLowest);
         }
-        private static void DoStack(params UIElement[] highestToLowest)
+        private static void DoStack(params FrameworkElement[] highestToLowest)
         {
             if (highestToLowest == null) return;
 
@@ -68,6 +111,14 @@ namespace System.Windows.Controls
                 Panel.SetZIndex(slide, pos--);
             }
         }
-
+        public int Indexof(FrameworkElement presenter)
+        {
+            return 0;
+        }
+        public object ItemFromContainer(FrameworkElement presenter)
+        {
+            return (presenter as ContentPresenter).Content;
+        }
+        public event EventHandler TransitionChanged;
     }
 }
