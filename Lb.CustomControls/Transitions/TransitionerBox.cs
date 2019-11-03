@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     [TemplatePart(Name = PART_FontPresenter, Type = typeof(ContentControl))]
     [TemplatePart(Name = PART_BackPresenter, Type = typeof(ContentControl))]
@@ -21,9 +23,13 @@ namespace System.Windows.Controls
             DependencyProperty.Register(nameof(TransitionWipeSelector), typeof(ITransitionWipeSelector), typeof(TransitionerBox), new PropertyMetadata(null));
         public static readonly DependencyProperty TransitionOriginProperty =
             DependencyProperty.Register(nameof(TransitionOrigin), typeof(Point?), typeof(TransitionerBox), new PropertyMetadata(null));
+        public static readonly DependencyPropertyKey OldContentPropertyKey =
+           DependencyProperty.RegisterReadOnly(nameof(OldContent), typeof(object), typeof(TransitionerBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty OldContentProperty = OldContentPropertyKey.DependencyProperty;
 
         private ContentControl _fontPresenter;
         private ContentControl _backPresenter;
+        private DispatcherOperation _activeFrameOperation;
         static TransitionerBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitionerBox), new FrameworkPropertyMetadata(typeof(TransitionerBox)));
@@ -43,6 +49,11 @@ namespace System.Windows.Controls
             get { return (Point?)GetValue(TransitionOriginProperty); }
             set { SetValue(TransitionOriginProperty, value); }
         }
+        public object OldContent
+        {
+            get { return (object)GetValue(OldContentProperty); }
+            private set { SetValue(OldContentPropertyKey, value); }
+        }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -52,25 +63,23 @@ namespace System.Windows.Controls
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
-            if (_backPresenter!=null)
-                _backPresenter.Content = oldContent;
-            OnContentChanged();
-        }
-        private void OnContentChanged()
-        {
             if (this.IsLoaded == false) return;
             TransitionChanged?.Invoke(this, null);
+            if (oldContent != null)
+                OldContent = oldContent;
+            if (_activeFrameOperation == null)
+                _activeFrameOperation = this.Dispatcher.BeginInvoke(new Action(OnContenChanged));
+        }
+        private void OnContenChanged()
+        {
             this.ActivateFrame();
+            _activeFrameOperation = null;
         }
         private void ActivateFrame()
         {
             var oldPresenter = _backPresenter;
             var newPresenter = _fontPresenter;
             if (!IsLoaded) return;
-            if (oldPresenter != null)
-                oldPresenter.Visibility = Visibility.Visible;
-            if (newPresenter != null)
-                newPresenter.Visibility = Visibility.Visible;
             if (oldPresenter != null && newPresenter != null)
             {
                 ITransitionWipe wipe = TransitionWipe;
@@ -100,6 +109,10 @@ namespace System.Windows.Controls
         void ITransitionContainer.SetZIndexOrderBy(params FrameworkElement[] highestToLowest)
         {
             DoStack(highestToLowest);
+        }
+        void ITransitionContainer.OnCompletedTransition()
+        {
+            OldContent = null;
         }
         private static void DoStack(params FrameworkElement[] highestToLowest)
         {

@@ -20,7 +20,7 @@
                 <MenuItem Command="{NavigateTo ModuleD/Views/ViewA}" Header="模块D" />
                 <MenuItem Command="{NavigateTo ModuleE/Views/ViewA}" Header="模块E" />
             </MenuItem>
-            <MenuItem Template="{DynamicResource MenuItemTemplate1}" Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
+            <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
             <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
             <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
             <MenuItem Command="{NavigateTo ModuleD/Views/ViewA}" Header="模块D" />
@@ -29,11 +29,7 @@
         <RegionBrowser Grid.Row="1" prism:RegionManager.RegionName="ContentRegion">
             <RegionBrowser.ContentControlTemplate>
                 <ControlTemplate TargetType="ContentControl">
-                    <TransitionerBox Content="{TemplateBinding Content}">
-                        <TransitionerBox.TransitionWipe>
-                            <FadeWipe/>
-                        </TransitionerBox.TransitionWipe>
-                    </TransitionerBox>
+                    <TransitionerBox Content="{TemplateBinding Content}" TransitionWipe="{LocalCustomWipe}"/>
                 </ControlTemplate>
             </RegionBrowser.ContentControlTemplate>
         </RegionBrowser>

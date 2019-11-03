@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     /// <summary>
     /// Multiplies a time span unit by the index of an item in a list.  

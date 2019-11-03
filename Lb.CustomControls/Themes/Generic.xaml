@@ -1,7 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:System.Windows.Controls">
+    xmlns:local="clr-namespace:Lb.CustomControls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Lb.CustomControls;component/Themes/Themes.Transitions.xaml" />
     </ResourceDictionary.MergedDictionaries>

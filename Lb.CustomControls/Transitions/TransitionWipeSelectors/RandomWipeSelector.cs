@@ -1,12 +1,9 @@
-﻿using System.Windows.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Markup;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     [ContentProperty(nameof(Wipes))]
     public class RandomWipeSelector : ITransitionWipeSelector
@@ -19,11 +16,10 @@ namespace System.Windows.Controls
             {
                 new CircleWipe(),
                 new FadeWipe(),
-                new RollWipe(),
                 new SlideOutWipe(),
                 new SlideWipe(),
             };
-            _wipes.AddRange(CustomWipeTypeConverter.GetCustomWipes());
+            _wipes.AddRange(CustomWipe.GetLocalCustomWipes());
             Wipes = new List<ITransitionWipe>();
             _random = new Random();
         }

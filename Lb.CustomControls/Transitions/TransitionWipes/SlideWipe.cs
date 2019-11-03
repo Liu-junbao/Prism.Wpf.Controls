@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public class SlideWipe : TransitionWipeBase
     {        
@@ -13,99 +13,101 @@ namespace System.Windows.Controls
         /// Direction of the slide wipe
         /// </summary>
         public SlideDirection Direction { get; set; }
-
-        /// <summary>
-        /// Duration of the animation
-        /// </summary>
-        public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(0.7);
-
-        public override void Wipe(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer zIndexController)
+        protected override Storyboard CreateStoryboardForOldPresenter(ITransitionContainer container)
         {
-            if (oldPresenter == null) throw new ArgumentNullException(nameof(oldPresenter));
-            if (newPresenter == null) throw new ArgumentNullException(nameof(newPresenter));
-            if (zIndexController == null) throw new ArgumentNullException(nameof(zIndexController));
-
-            // Set up time points
-            var zeroKeyTime = KeyTime.FromTimeSpan(TimeSpan.Zero);
-            var endKeyTime = KeyTime.FromTimeSpan(Duration);
-
-            // Set up coordinates
-            double fromStartX = 0, fromEndX = 0, toStartX = 0, toEndX = 0;
-            double fromStartY = 0, fromEndY = 0, toStartY = 0, toEndY = 0;
-
-            if (Direction == SlideDirection.Left)
+            double fromStartX = 0, fromEndX = 0;
+            double fromStartY = 0, fromEndY = 0;
+            switch (Direction)
             {
-                fromEndX = -oldPresenter.ActualWidth;
-                toStartX = newPresenter.ActualWidth;
-            }
-            else if (Direction == SlideDirection.Right)
-            {
-                fromEndX = oldPresenter.ActualWidth;
-                toStartX = -newPresenter.ActualWidth;
-            }
-            else if (Direction == SlideDirection.Up)
-            {
-                fromEndY = -oldPresenter.ActualHeight;
-                toStartY = newPresenter.ActualHeight;
-            }
-            else if (Direction == SlideDirection.Down)
-            {
-                fromEndY = oldPresenter.ActualHeight;
-                toStartY = -newPresenter.ActualHeight;
+                case SlideDirection.Left:
+                    fromEndX = -container.ActualWidth - 1;
+                    break;
+                case SlideDirection.Right:
+                    fromEndX = container.ActualWidth + 1;
+                    break;
+                case SlideDirection.Up:
+                    fromEndY = -container.ActualHeight - 1;
+                    break;
+                case SlideDirection.Down:
+                    fromEndY = container.ActualHeight + 1;
+                    break;
+                default:
+                    break;
             }
 
-            // From
-            var fromTransform = new TranslateTransform(fromStartX, fromStartY);
+            return GetStoryboard(fromStartX, fromEndX, fromStartY, fromEndY);
+        }
+        protected override Storyboard CreateStoryboardForNewPresenter(ITransitionContainer container)
+        {
+            double toStartX = 0, toEndX = 0;
+            double toStartY = 0, toEndY = 0;
+            switch (Direction)
+            {
+                case SlideDirection.Left:
+                    toStartX = container.ActualWidth;
+                    break;
+                case SlideDirection.Right:
+                    toStartX = -container.ActualWidth;
+                    break;
+                case SlideDirection.Up:
+                    toStartY = container.ActualHeight;
+                    break;
+                case SlideDirection.Down:
+                    toStartY = -container.ActualHeight;
+                    break;
+                default:
+                    break;
+            }
+
+            return GetStoryboard(toStartX, toEndX, toStartY, toEndY);
+        }
+        protected override Storyboard PrepareStoryboardForOldPresenter(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
+            var fromTransform = new TranslateTransform(0, 0);
             oldPresenter.RenderTransform = fromTransform;
-            var fromXAnimation = new DoubleAnimationUsingKeyFrames();
-            fromXAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(fromStartX, zeroKeyTime));
-            fromXAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(fromEndX, endKeyTime, _sineEase));
-            var fromYAnimation = new DoubleAnimationUsingKeyFrames();
-            fromYAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(fromStartY, zeroKeyTime));
-            fromYAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(fromEndY, endKeyTime, _sineEase));
-
-            // To
-            var toTransform = new TranslateTransform(toStartX, toStartY);
+            return base.PrepareStoryboardForOldPresenter(oldPresenter, newPresenter, origin, container);
+        }
+        protected override Storyboard PrepareStoryboardForNewPresenter(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
+            var toTransform = new TranslateTransform(0, 0);
             newPresenter.RenderTransform = toTransform;
-            var toXAnimation = new DoubleAnimationUsingKeyFrames();
-            toXAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(toStartX, zeroKeyTime));
-            toXAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(toEndX, endKeyTime, _sineEase));
-            var toYAnimation = new DoubleAnimationUsingKeyFrames();
-            toYAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(toStartY, zeroKeyTime));
-            toYAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(toEndY, endKeyTime, _sineEase));
+            return base.PrepareStoryboardForNewPresenter(oldPresenter, newPresenter, origin, container);
+        }
 
-            this.CompletedWithEnd(fromXAnimation,zIndexController,()=> {
-                fromTransform.BeginAnimation(TranslateTransform.XProperty, null);
-                fromTransform.X = fromEndX;
-                oldPresenter.RenderTransform = null;
-                oldPresenter.Visibility = Visibility.Hidden;
-            });
-            this.CompletedWithEnd(fromYAnimation,zIndexController,()=> {
-                fromTransform.BeginAnimation(TranslateTransform.YProperty, null);
-                fromTransform.Y = fromEndY;
-                oldPresenter.RenderTransform = null;
-                oldPresenter.Visibility = Visibility.Hidden;
-            });
-            this.CompletedWithEnd(toXAnimation,zIndexController,()=> {
-                toTransform.BeginAnimation(TranslateTransform.XProperty, null);
-                toTransform.X = toEndX;
-                newPresenter.RenderTransform = null;
-                oldPresenter.Visibility = Visibility.Collapsed;
-            });
-            this.CompletedWithEnd(toYAnimation,zIndexController,()=> {
-                toTransform.BeginAnimation(TranslateTransform.YProperty, null);
-                toTransform.Y = toEndY;
-                newPresenter.RenderTransform = null;
-                oldPresenter.Visibility = Visibility.Hidden;
-            });
+        private Storyboard GetStoryboard(double fromX, double toX, double fromY, double toY)
+        {
+            var zeroKeyTime = KeyTime.FromTimeSpan(TimeSpan.Zero);
+            var endKeyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.7));
 
-            // Animate
-            fromTransform.BeginAnimation(TranslateTransform.XProperty, fromXAnimation);
-            fromTransform.BeginAnimation(TranslateTransform.YProperty, fromYAnimation);
-            toTransform.BeginAnimation(TranslateTransform.XProperty, toXAnimation);
-            toTransform.BeginAnimation(TranslateTransform.YProperty, toYAnimation);
+            var fromXAnimation = new DoubleAnimationUsingKeyFrames();
+            fromXAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(fromX, zeroKeyTime));
+            fromXAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(toX, endKeyTime, _sineEase));
 
-            zIndexController.SetZIndexOrderBy(newPresenter, oldPresenter);
+
+            var fromYAnimation = new DoubleAnimationUsingKeyFrames();
+            fromYAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(fromY, zeroKeyTime));
+            fromYAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(toY, endKeyTime, _sineEase));
+
+
+            Storyboard.SetTargetProperty(fromXAnimation, new PropertyPath($"({nameof(UIElement)}.{nameof(UIElement.RenderTransform)}).({nameof(TranslateTransform)}.{nameof(TranslateTransform.X)})"));
+            Storyboard.SetTargetProperty(fromYAnimation, new PropertyPath($"({nameof(UIElement)}.{nameof(UIElement.RenderTransform)}).({nameof(TranslateTransform)}.{nameof(TranslateTransform.Y)})"));
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Duration = TimeSpan.FromSeconds(1.5);
+
+            storyboard.Children.Add(fromXAnimation);
+            storyboard.Children.Add(fromYAnimation);
+
+            return storyboard;
+        }
+
+        protected override void OnCompletedTransition(Storyboard oldStoryboard, FrameworkElement oldPresenter, Storyboard newStoryboard, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
+            oldPresenter.RenderTransform = null;
+            newPresenter.RenderTransform = null;
+            base.OnCompletedTransition(oldStoryboard, oldPresenter, newStoryboard, newPresenter, origin, container);
         }
     }
+
+    public enum SlideDirection { Left, Right, Up, Down }
 }

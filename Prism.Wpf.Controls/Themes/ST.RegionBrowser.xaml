@@ -349,8 +349,7 @@
                 x:Name="tb"
                 Margin="3"
                 VerticalAlignment="Center"
-                Text="{Binding (RegionBrowserAssist.Header)}"
-                Visibility="{Binding Header, Converter={StaticResource cvt.NULLToVisibility}}" />
+                Text="{Binding (RegionBrowserAssist.Header)}" />
         </StackPanel>
     </DataTemplate>
 
@@ -393,7 +392,7 @@
                                     ItemContainerStyle="{TemplateBinding DropDownHeaderContainerStyle}"
                                     ItemTemplate="{StaticResource dt.Header}"
                                     ItemsSource="{TemplateBinding Views}"
-                                    
+                                    SelectedItem="{Binding ElementName=PART_Header, Path=SelectedItem, Mode=TwoWay}"
                                     Style="{StaticResource st.ComboBox.Header}"
                                     Visibility="{Binding ElementName=sv, Path=ComputedHorizontalScrollBarVisibility}" />
                                 <ScrollViewer
@@ -406,7 +405,6 @@
                                         ItemContainerStyle="{TemplateBinding HeaderContainerStyle}"
                                         ItemTemplate="{StaticResource dt.Header}"
                                         ItemsSource="{TemplateBinding Views}"
-                                        SelectedItem="{TemplateBinding Content}"
                                         Style="{StaticResource st.ListBox.Header}" />
                                 </ScrollViewer>
                             </DockPanel>

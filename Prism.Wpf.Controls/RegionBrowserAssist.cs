@@ -25,7 +25,7 @@ namespace Prism.Controls
         public static readonly DependencyProperty StrokeProperty =
             DependencyProperty.RegisterAttached("Stroke", typeof(Brush), typeof(RegionBrowserAssist), new PropertyMetadata(SystemColors.WindowTextBrush));
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.RegisterAttached("StrokeThickness", typeof(Thickness), typeof(RegionBrowserAssist), new PropertyMetadata(new Thickness(0.3)));
+            DependencyProperty.RegisterAttached("StrokeThickness", typeof(double), typeof(RegionBrowserAssist), new PropertyMetadata(0.3));
 
         public static bool GetCanClose(DependencyObject obj)
         {
@@ -84,11 +84,11 @@ namespace Prism.Controls
         {
             obj.SetValue(StrokeProperty, value);
         }
-        public static Thickness GetStrokeThickness(DependencyObject obj)
+        public static double GetStrokeThickness(DependencyObject obj)
         {
-            return (Thickness)obj.GetValue(StrokeThicknessProperty);
+            return (double)obj.GetValue(StrokeThicknessProperty);
         }
-        public static void SetStrokeThickness(DependencyObject obj, Thickness value)
+        public static void SetStrokeThickness(DependencyObject obj, double value)
         {
             obj.SetValue(StrokeThicknessProperty, value);
         }

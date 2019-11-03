@@ -1,13 +1,16 @@
 using System;
 using System.Windows;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public interface ITransitionContainer
     {
-        event EventHandler TransitionChanged;
+        double ActualWidth { get; }
+        double ActualHeight { get; }
         void SetZIndexOrderBy(params FrameworkElement[] presenters);
+        void OnCompletedTransition();
         int Indexof(FrameworkElement presenter);
         object ItemFromContainer(FrameworkElement presenter);
+        event EventHandler TransitionChanged;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     /// <summary>
     /// Content control to host the content of an individual page within a <see cref="TransitionerSlideBox"/>.

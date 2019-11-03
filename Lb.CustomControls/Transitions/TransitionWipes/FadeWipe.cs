@@ -2,64 +2,63 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public class FadeWipe :TransitionWipeBase
     {
         private readonly SineEase _sineEase = new SineEase();
-
-        /// <summary>
-        /// Duration of the animation
-        /// </summary>
-        public TimeSpan Duration { get; set; } = TimeSpan.FromSeconds(3);
-
-        public override void Wipe(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer zIndexController)
+        public FadeWipe()
         {
-            if (oldPresenter == null) throw new ArgumentNullException(nameof(oldPresenter));
-            if (newPresenter == null) throw new ArgumentNullException(nameof(newPresenter));
-            if (zIndexController == null) throw new ArgumentNullException(nameof(zIndexController));
-
-            Storyboard storyboard = new Storyboard();
-            Storyboard.SetTarget
-
-            // Set up time points
+            TransitionOrder = TransitionOrder.OldFirst;
+        }
+        protected override Storyboard CreateStoryboardForOldPresenter(ITransitionContainer container)
+        {
             var zeroKeyTime = KeyTime.FromTimeSpan(TimeSpan.Zero);
-            var endKeyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(Duration.TotalSeconds/2));
+            var endKeyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.5));
 
-            // From
             var fromAnimation = new DoubleAnimationUsingKeyFrames();
             fromAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(1, zeroKeyTime));
             fromAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(0, endKeyTime, _sineEase));
 
-            // To
+            var storyboard = new Storyboard();
+            storyboard.Duration= TimeSpan.FromSeconds(3);
+            storyboard.Children.Add(fromAnimation);
+            Storyboard.SetTargetProperty(fromAnimation,new PropertyPath(UIElement.OpacityProperty));
+
+            return storyboard;
+        }
+
+        protected override Storyboard CreateStoryboardForNewPresenter(ITransitionContainer container)
+        {
+            var zeroKeyTime = KeyTime.FromTimeSpan(TimeSpan.Zero);
+            var endKeyTime = KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.5));
+
             var toAnimation = new DoubleAnimationUsingKeyFrames();
             toAnimation.KeyFrames.Add(new LinearDoubleKeyFrame(0, zeroKeyTime));
             toAnimation.KeyFrames.Add(new EasingDoubleKeyFrame(1, endKeyTime, _sineEase));
 
-            // Preset
+            var storyboard = new Storyboard();
+            storyboard.Duration = TimeSpan.FromSeconds(1);
+            storyboard.Children.Add(toAnimation);
+            Storyboard.SetTargetProperty(toAnimation, new PropertyPath(UIElement.OpacityProperty));
+
+            return storyboard;
+        }
+        protected override Storyboard PrepareStoryboardForOldPresenter(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
             oldPresenter.Opacity = 1;
+            return base.PrepareStoryboardForOldPresenter(oldPresenter, newPresenter, origin, container);
+        }
+        protected override Storyboard PrepareStoryboardForNewPresenter(FrameworkElement oldPresenter, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
             newPresenter.Opacity = 0;
-
-            // Set up events
-            this.CompletedWithEnd(toAnimation,zIndexController,()=>
-            {
-                newPresenter.Opacity = 1;
-                newPresenter.BeginAnimation(UIElement.OpacityProperty, null);
-                oldPresenter.Opacity = 1;
-                oldPresenter.Visibility = Visibility.Hidden;
-            });
-
-            this.CompletedWithEnd(fromAnimation,zIndexController,()=>
-            {
-                oldPresenter.Visibility = Visibility.Hidden;
-                oldPresenter.Opacity = 1;
-                oldPresenter.BeginAnimation(UIElement.OpacityProperty, null);
-                newPresenter.BeginAnimation(UIElement.OpacityProperty, toAnimation);
-            });
-
-            // Animate
-            oldPresenter.BeginAnimation(UIElement.OpacityProperty, fromAnimation);
-            zIndexController.SetZIndexOrderBy(newPresenter, oldPresenter);
+            return base.PrepareStoryboardForNewPresenter(oldPresenter, newPresenter, origin, container);
+        }
+        protected override void OnCompletedTransition(Storyboard oldStoryboard, FrameworkElement oldPresenter, Storyboard newStoryboard, FrameworkElement newPresenter, Point origin, ITransitionContainer container)
+        {
+            oldPresenter.Opacity = 1;
+            newPresenter.Opacity = 1;
+            base.OnCompletedTransition(oldStoryboard, oldPresenter, newStoryboard, newPresenter, origin, container);
         }
     }
 }

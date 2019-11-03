@@ -44,11 +44,6 @@ namespace Prism.Controls
             DependencyProperty.Register(nameof(ContentBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderMouseOverBackgroundProperty =
             DependencyProperty.Register(nameof(MouseOverBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
-        private static void OnActiveViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            RegionBrowser browser = (RegionBrowser)d;
-            browser.OnActiveViewChanged(e.OldValue,e.NewValue);
-        }
         static RegionBrowser()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RegionBrowser), new FrameworkPropertyMetadata(typeof(RegionBrowser)));
@@ -171,18 +166,13 @@ namespace Prism.Controls
                     Region?.Activate(header);
             }
         }
-        protected virtual void OnActiveViewChanged(object oldView, object newView)
-        {
-            if (newView != null)
-            {
-                var activeView = Region?.ActiveViews.FirstOrDefault();
-                if (activeView != newView)
-                    Region?.Activate(newView);
-            }
-        }
         protected override void OnContentChanged(object oldContent, object newContent)
         {
-            _headerBox?.ScrollIntoView(newContent);
+            if (_headerBox != null)
+            {
+                _headerBox.SelectedItem = newContent;
+                _headerBox.ScrollIntoView(newContent);
+            }
             base.OnContentChanged(oldContent, newContent);
         }
         private void OnCloseViewHandler(object sender, ExecutedRoutedEventArgs e)

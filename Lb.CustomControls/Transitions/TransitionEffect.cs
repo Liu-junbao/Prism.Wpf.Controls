@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public class TransitionEffect : TransitionEffectBase
     {

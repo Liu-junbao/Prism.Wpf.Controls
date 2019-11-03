@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public interface ITransitionWipe
     {

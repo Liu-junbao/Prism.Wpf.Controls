@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Markup;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public class TransitionEffectTypeConverter : TypeConverter
     {

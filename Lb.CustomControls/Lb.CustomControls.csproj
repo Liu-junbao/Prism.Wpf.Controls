@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <RootNamespace>System.Windows.Controls</RootNamespace>
+    <RootNamespace>Lb.CustomControls</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

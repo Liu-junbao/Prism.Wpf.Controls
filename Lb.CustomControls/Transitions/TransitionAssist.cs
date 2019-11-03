@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     /// <summary>
     /// Allows transitions to be disabled where supported.

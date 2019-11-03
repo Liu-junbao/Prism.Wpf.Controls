@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     /// <summary>
     /// The transitioner provides an easy way to move between content with a default in-place circular transition.
@@ -114,9 +114,7 @@ namespace System.Windows.Controls
             }
 
             TransitionChanged?.Invoke(this, null);
-
             ActivateFrame(selectedIndex, unselectedIndex);
-
             base.OnSelectionChanged(e);
         }
         private void IsTransitionFinishedHandler(object sender, RoutedEventArgs routedEventArgs)
@@ -243,6 +241,7 @@ namespace System.Windows.Controls
 
             DoStack(presenters);
         }
+        void ITransitionContainer.OnCompletedTransition() { }
         private static void DoStack(params FrameworkElement[] presenters)
         {
             if (presenters == null) return;

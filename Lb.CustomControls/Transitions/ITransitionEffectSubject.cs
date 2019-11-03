@@ -1,6 +1,6 @@
 using System;
 
-namespace System.Windows.Controls
+namespace Lb.CustomControls
 {
     public interface ITransitionEffectSubject
     {
