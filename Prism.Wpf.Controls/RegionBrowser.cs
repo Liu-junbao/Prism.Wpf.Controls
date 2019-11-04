@@ -23,6 +23,38 @@ namespace Prism.Controls
     {
         public const string PART_Header = nameof(PART_Header);
 
+        #region commands
+        private static RoutedUICommand _closeTab;
+        private static RoutedUICommand _navigateTo;
+
+        public static ICommand CloseTab
+        {
+            get
+            {
+                if (_closeTab == null)
+                {
+                    _closeTab = new RoutedUICommand("close tab", nameof(CloseTab), typeof(RegionBrowser));
+                    //注册热键
+                    _closeTab.InputGestures.Add(new KeyGesture(Key.F4,ModifierKeys.Control));
+                }
+                return _closeTab;
+            }
+        }
+        public static ICommand NavigateTo
+        {
+            get
+            {
+                if (_navigateTo == null)
+                {
+                    _navigateTo = new RoutedUICommand("Navigate to", nameof(NavigateTo), typeof(RegionBrowser));
+                    //注册热键
+                    //_navigateTo.InputGestures.Add(new KeyGesture(Key.B,ModifierKeys.Alt));
+                }
+                return _navigateTo;
+            }
+        }
+        #endregion
+
         public static RoutedCommand CloseViewCommand = new RoutedCommand();
         private static readonly DependencyPropertyKey RegionPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(Region), typeof(IRegion), typeof(RegionBrowser), new PropertyMetadata(null));
@@ -53,7 +85,7 @@ namespace Prism.Controls
         private ListBox _headerBox;
         public RegionBrowser()
         {
-            this.CommandBindings.Add(new CommandBinding(CloseViewCommand, OnCloseViewHandler));
+            this.CommandBindings.Add(new CommandBinding(CloseTab, OnCloseTabHandler));
         }
         public IRegion Region
         {
@@ -177,7 +209,7 @@ namespace Prism.Controls
             }
             base.OnContentChanged(oldContent, newContent);
         }
-        private void OnCloseViewHandler(object sender, ExecutedRoutedEventArgs e)
+        private void OnCloseTabHandler(object sender, ExecutedRoutedEventArgs e)
         {
             var region = Region;
             if (region?.Views?.Contains(e.Parameter) == true)

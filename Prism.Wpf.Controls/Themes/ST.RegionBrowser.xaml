@@ -185,7 +185,7 @@
                                     x:Name="bt"
                                     Width="16"
                                     Height="16"
-                                    Command="{x:Static local:RegionBrowser.CloseViewCommand}"
+                                    Command="{x:Static local:RegionBrowser.CloseTab}"
                                     CommandParameter="{Binding}"
                                     Style="{StaticResource st.RegionBrowser.CloseButton}"
                                     Visibility="Collapsed" />
