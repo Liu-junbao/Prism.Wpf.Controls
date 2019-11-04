@@ -26,14 +26,14 @@ namespace Lb.CustomControls
         public static readonly DependencyPropertyKey OldContentPropertyKey =
            DependencyProperty.RegisterReadOnly(nameof(OldContent), typeof(object), typeof(TransitionerBox), new PropertyMetadata(null));
         public static readonly DependencyProperty OldContentProperty = OldContentPropertyKey.DependencyProperty;
-
-        private ContentControl _fontPresenter;
-        private ContentControl _backPresenter;
-        private DispatcherOperation _activeFrameOperation;
         static TransitionerBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitionerBox), new FrameworkPropertyMetadata(typeof(TransitionerBox)));
         }
+
+        private ContentControl _fontPresenter;
+        private ContentControl _backPresenter;
+        private DispatcherOperation _activeFrameOperation;
         public ITransitionWipe TransitionWipe
         {
             get { return (ITransitionWipe)GetValue(TransitionWipeProperty); }

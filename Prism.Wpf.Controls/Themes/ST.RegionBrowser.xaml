@@ -416,7 +416,7 @@
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Content="{TemplateBinding Content}"
-                                        Template="{TemplateBinding ContentControlTemplate}" />
+                                        Style="{TemplateBinding ContentContainerStyle}" />
                                 </DockPanel>
                             </Border>
                         </Grid>
@@ -424,11 +424,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ContentControlTemplate">
+        <Setter Property="ContentContainerStyle">
             <Setter.Value>
-                <ControlTemplate TargetType="ContentControl">
-                    <ContentPresenter />
-                </ControlTemplate>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ContentControl">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
             </Setter.Value>
         </Setter>
     </Style>

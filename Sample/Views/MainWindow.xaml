@@ -27,11 +27,17 @@
             <MenuItem Command="{NavigateTo ModuleE/Views/ViewA}" Header="模块E" />
         </Menu>
         <RegionBrowser Grid.Row="1" prism:RegionManager.RegionName="ContentRegion">
-            <RegionBrowser.ContentControlTemplate>
-                <ControlTemplate TargetType="ContentControl">
-                    <TransitionerBox Content="{TemplateBinding Content}" TransitionWipe="{LocalCustomWipe}"/>
-                </ControlTemplate>
-            </RegionBrowser.ContentControlTemplate>
+            <RegionBrowser.ContentContainerStyle>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ContentControl">
+                                <TransitionerBox Content="{TemplateBinding Content}" TransitionWipe="{LocalCustomWipe}" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </RegionBrowser.ContentContainerStyle>
         </RegionBrowser>
     </Grid>
 </Window>

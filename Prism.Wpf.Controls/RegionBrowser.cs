@@ -18,9 +18,11 @@ namespace Prism.Controls
     [TemplatePart(Name =PART_Header,Type =typeof(ListBox))]
     [StyleTypedProperty(Property = nameof(HeaderContainerStyle), StyleTargetType = typeof(ListBoxItem))]
     [StyleTypedProperty(Property = nameof(DropDownHeaderContainerStyle), StyleTargetType = typeof(ComboBoxItem))]
+    [StyleTypedProperty(Property = nameof(ContentContainerStyle), StyleTargetType = typeof(ContentControl))]
     public class RegionBrowser : ContentControl
     {
         public const string PART_Header = nameof(PART_Header);
+
         public static RoutedCommand CloseViewCommand = new RoutedCommand();
         private static readonly DependencyPropertyKey RegionPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(Region), typeof(IRegion), typeof(RegionBrowser), new PropertyMetadata(null));
@@ -34,8 +36,8 @@ namespace Prism.Controls
             DependencyProperty.Register(nameof(DropDownHeaderContainerStyle), typeof(Style), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty HeaderTemplateProperty =
             DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty ContentControlTemplateProperty =
-            DependencyProperty.Register(nameof(ContentControlTemplate), typeof(ControlTemplate), typeof(RegionBrowser), new PropertyMetadata(null));
+        public static readonly DependencyProperty ContentContainerStyleProperty =
+                  DependencyProperty.Register(nameof(ContentContainerStyle), typeof(Style), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty MenuContextProperty =
             DependencyProperty.Register(nameof(MenuContext), typeof(object), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty ToolContextProperty =
@@ -97,10 +99,10 @@ namespace Prism.Controls
             get { return (DataTemplate)GetValue(HeaderTemplateProperty); }
             set { SetValue(HeaderTemplateProperty, value); }
         }
-        public ControlTemplate ContentControlTemplate
+        public Style ContentContainerStyle
         {
-            get { return (ControlTemplate)GetValue(ContentControlTemplateProperty); }
-            set { SetValue(ContentControlTemplateProperty, value); }
+            get { return (Style)GetValue(ContentContainerStyleProperty); }
+            set { SetValue(ContentContainerStyleProperty, value); }
         }
         public IEnumerable Views
         {
@@ -193,4 +195,6 @@ namespace Prism.Controls
         }
       
     }
+
+
 }
