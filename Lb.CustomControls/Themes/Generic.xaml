@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Lb.CustomControls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Lb.CustomControls;component/Themes/Themes.Transitions.xaml" />
+        <ResourceDictionary Source="/Lb.CustomControls;component/Themes/ST.Transitions.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <Style BasedOn="{StaticResource st.TransitionerBox}" TargetType="local:TransitionerBox"/>
     <Style BasedOn="{StaticResource st.TransitioningContent}" TargetType="local:TransitioningContent" />

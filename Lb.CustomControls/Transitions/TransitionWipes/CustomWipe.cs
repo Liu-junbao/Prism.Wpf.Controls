@@ -12,7 +12,7 @@ namespace Lb.CustomControls
     [StyleTypedProperty(Property = "OldStyle", StyleTargetType = typeof(TransitionerSlide))]
     public class CustomWipe : TransitionWipeBase
     {
-        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri("/Lb.CustomControls;component/Themes/Themes.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri("/Lb.CustomControls;component/Themes/RS.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
         private static TValue GetValue<TValue>(string name) where TValue : class => _customWipeResources[name] as TValue;
         public static CustomWipe FindLocalCustomWipe(CustomKind kind)
         {
