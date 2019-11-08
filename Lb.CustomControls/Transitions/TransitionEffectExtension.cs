@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     [MarkupExtensionReturnType(typeof(TransitionEffectBase))]
     public class TransitionEffectExtension : MarkupExtension

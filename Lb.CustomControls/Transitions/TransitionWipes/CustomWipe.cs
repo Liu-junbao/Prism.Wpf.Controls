@@ -6,13 +6,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     [StyleTypedProperty(Property = "OldStyle", StyleTargetType = typeof(TransitionerSlide))]
     [StyleTypedProperty(Property = "OldStyle", StyleTargetType = typeof(TransitionerSlide))]
     public class CustomWipe : TransitionWipeBase
     {
-        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri("/Lb.CustomControls;component/Themes/RS.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+        private static ResourceDictionary _customWipeResources = Application.LoadComponent(new Uri($"/{nameof(Lb)}.{nameof(CustomControls)};component/Themes/RS.CustomWipe.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
         private static TValue GetValue<TValue>(string name) where TValue : class => _customWipeResources[name] as TValue;
         public static CustomWipe FindLocalCustomWipe(CustomKind kind)
         {

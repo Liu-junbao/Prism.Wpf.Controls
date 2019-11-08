@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     public interface ITransitionWipeSelector
     {

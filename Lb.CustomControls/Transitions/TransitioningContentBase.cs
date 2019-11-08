@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     public class TransitioningContentBase : ContentControl, ITransitionEffectSubject
     {

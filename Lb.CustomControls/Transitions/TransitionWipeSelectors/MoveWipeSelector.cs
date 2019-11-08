@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 
-namespace Lb.CustomControls
-{
+namespace Lb.CustomControls.Transitions
+{ 
     public class MoveWipeSelector : ITransitionWipeSelector
     {
         public MoveWipeSelector()

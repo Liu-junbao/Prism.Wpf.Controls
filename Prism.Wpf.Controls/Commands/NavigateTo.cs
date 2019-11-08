@@ -35,7 +35,7 @@ namespace Prism.Commands
                 if (string.IsNullOrEmpty(viewName))
                     viewName = parameter?.ToString();
                 if (string.IsNullOrEmpty(viewName) == false)
-                    region.RequestNavigate(viewName, i => i.PublichNavigated());
+                    region.RequestNavigate(viewName, i => i.Publich());
             }
         }
         public event EventHandler CanExecuteChanged;

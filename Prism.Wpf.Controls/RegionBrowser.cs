@@ -16,9 +16,6 @@ using System.Windows.Media;
 namespace Prism.Controls
 {
     [TemplatePart(Name =PART_Header,Type =typeof(ListBox))]
-    [StyleTypedProperty(Property = nameof(HeaderContainerStyle), StyleTargetType = typeof(ListBoxItem))]
-    [StyleTypedProperty(Property = nameof(DropDownHeaderContainerStyle), StyleTargetType = typeof(ComboBoxItem))]
-    [StyleTypedProperty(Property = nameof(ContentContainerStyle), StyleTargetType = typeof(ContentControl))]
     public class RegionBrowser : ContentControl
     {
         public const string PART_Header = nameof(PART_Header);
@@ -62,22 +59,6 @@ namespace Prism.Controls
         private static readonly DependencyPropertyKey ViewsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(Views), typeof(IEnumerable), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty ViewsProperty = ViewsPropertyKey.DependencyProperty;
-        public static readonly DependencyProperty HeaderContainerStyleProperty =
-            DependencyProperty.Register(nameof(HeaderContainerStyle), typeof(Style), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty DropDownHeaderContainerStyleProperty =
-            DependencyProperty.Register(nameof(DropDownHeaderContainerStyle), typeof(Style), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty HeaderTemplateProperty =
-            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty ContentContainerStyleProperty =
-                  DependencyProperty.Register(nameof(ContentContainerStyle), typeof(Style), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty MenuContextProperty =
-            DependencyProperty.Register(nameof(MenuContext), typeof(object), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty ToolContextProperty =
-            DependencyProperty.Register(nameof(ToolContext), typeof(object), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty ContentBackgroundProperty =
-            DependencyProperty.Register(nameof(ContentBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
-        public static readonly DependencyProperty HeaderMouseOverBackgroundProperty =
-            DependencyProperty.Register(nameof(MouseOverBackground), typeof(Brush), typeof(RegionBrowser), new PropertyMetadata(null));
         static RegionBrowser()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RegionBrowser), new FrameworkPropertyMetadata(typeof(RegionBrowser)));
@@ -91,50 +72,6 @@ namespace Prism.Controls
         {
             get { return (IRegion)GetValue(RegionProperty); }
             protected set { SetValue(RegionPropertyKey, value); }
-        }
-        [Bindable(true)]
-        [Category("Appearance")]
-        public Brush ContentBackground
-        {
-            get { return (Brush)GetValue(ContentBackgroundProperty); }
-            set { SetValue(ContentBackgroundProperty, value); }
-        }
-        [Bindable(true)]
-        [Category("Appearance")]
-        public Brush MouseOverBackground
-        {
-            get { return (Brush)GetValue(HeaderMouseOverBackgroundProperty); }
-            set { SetValue(HeaderMouseOverBackgroundProperty, value); }
-        }
-        public object MenuContext
-        {
-            get { return (object)GetValue(MenuContextProperty); }
-            set { SetValue(MenuContextProperty, value); }
-        }
-        public object ToolContext
-        {
-            get { return (object)GetValue(ToolContextProperty); }
-            set { SetValue(ToolContextProperty, value); }
-        }
-        public Style HeaderContainerStyle
-        {
-            get { return (Style)GetValue(HeaderContainerStyleProperty); }
-            set { SetValue(HeaderContainerStyleProperty, value); }
-        }
-        public Style DropDownHeaderContainerStyle
-        {
-            get { return (Style)GetValue(DropDownHeaderContainerStyleProperty); }
-            set { SetValue(DropDownHeaderContainerStyleProperty, value); }
-        }
-        public DataTemplate HeaderTemplate
-        {
-            get { return (DataTemplate)GetValue(HeaderTemplateProperty); }
-            set { SetValue(HeaderTemplateProperty, value); }
-        }
-        public Style ContentContainerStyle
-        {
-            get { return (Style)GetValue(ContentContainerStyleProperty); }
-            set { SetValue(ContentContainerStyleProperty, value); }
         }
         public IEnumerable Views
         {

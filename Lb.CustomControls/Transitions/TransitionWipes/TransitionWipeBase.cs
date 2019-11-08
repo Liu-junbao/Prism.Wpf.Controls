@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     public abstract class TransitionWipeBase : ITransitionWipe
     {

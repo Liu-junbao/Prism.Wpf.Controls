@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     [TemplatePart(Name = PART_FontPresenter, Type = typeof(ContentControl))]
     [TemplatePart(Name = PART_BackPresenter, Type = typeof(ContentControl))]

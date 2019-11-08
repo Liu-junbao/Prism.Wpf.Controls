@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     /// <summary>
     /// The transitioner provides an easy way to move between content with a default in-place circular transition.

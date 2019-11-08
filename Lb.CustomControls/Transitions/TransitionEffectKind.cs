@@ -1,4 +1,4 @@
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     public enum TransitionEffectKind
     {

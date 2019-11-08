@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     [ContentProperty(nameof(Wipes))]
     public class RandomWipeSelector : ITransitionWipeSelector

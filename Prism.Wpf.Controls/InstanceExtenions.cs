@@ -6,13 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Markup;
 
-namespace Prism
+namespace Prism.Controls
 {
     public class InstanceExtenions<TValue> : MarkupExtension
     {
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            var value = ContainerExtensions.GetInstance<TValue>();
+            var value = this.GetInstance<TValue>();
             if(value!=null)
                 OnInitialize(value);
             return value;

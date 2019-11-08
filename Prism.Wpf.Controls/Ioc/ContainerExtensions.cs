@@ -11,7 +11,7 @@ namespace Prism.Ioc
 {
     public static class ContainerExtensions
     {
-        public static TInstance GetInstance<TInstance>()
+        public static TInstance GetInstance<TInstance>(this object obj)
         {
             if (CommonServiceLocator.ServiceLocator.IsLocationProviderSet)
             {
@@ -19,10 +19,9 @@ namespace Prism.Ioc
             }
             return default(TInstance);
         }
-
         public static void NavigateToView<TView>(this object obj, string regionName)
         {
-            GetInstance<IRegionManager>()?.RequestNavigate(regionName, typeof(TView).FullName.Replace(".", "/"), OnNavigated);
+            obj.GetInstance<IRegionManager>()?.RequestNavigate(regionName, typeof(TView).FullName.Replace(".", "/"), OnNavigated);
         }
         public static void RegisterView<TView>(this IContainerProvider containerProvider,string regionName)
         {
@@ -34,15 +33,15 @@ namespace Prism.Ioc
         }
         private static void OnNavigated(NavigationResult obj)
         {
-            GetInstance<IEventAggregator>()?.GetEvent<PubSubEvent<NavigationResult>>().Publish(obj);
+            obj.Publich();
         }
-        public static void PublichNavigated(this NavigationResult result)
+        public static void Publich(this NavigationResult result)
         {
-            GetInstance<IEventAggregator>()?.GetEvent<PubSubEvent<NavigationResult>>().Publish(result);
+            result.GetInstance<IEventAggregator>()?.GetEvent<PubSubEvent<NavigationResult>>().Publish(result);
         }
-        public static void SubscribeNavigated(this object obj, Action<NavigationResult> onResult, ThreadOption threadOption = ThreadOption.PublisherThread)
+        public static void Subscribe(this object obj, Action<NavigationResult> onResult, ThreadOption threadOption = ThreadOption.PublisherThread)
         {
-            GetInstance<IEventAggregator>()?.GetEvent<PubSubEvent<NavigationResult>>().Subscribe(onResult, threadOption);
+            obj.GetInstance<IEventAggregator>()?.GetEvent<PubSubEvent<NavigationResult>>().Subscribe(onResult, threadOption);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     [Flags]
     public enum TransitioningContentRunHint

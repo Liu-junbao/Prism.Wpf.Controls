@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace Lb.CustomControls
+namespace Lb.CustomControls.Transitions
 {
     public interface ITransitionEffect
     {

@@ -7,37 +7,38 @@
     Width="525"
     Height="350"
     prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Menu Background="#FFCCCCCC">
-            <MenuItem Header="模块列表">
+    <Border Background="Black">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Menu Margin="0" Background="#FFCCCCCC">
+                <MenuItem Header="模块列表">
+                    <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
+                    <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
+                    <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
+                    <MenuItem Command="{NavigateTo ModuleD/Views/ViewA}" Header="模块D" />
+                    <MenuItem Command="{NavigateTo ModuleE/Views/ViewA}" Header="模块E" />
+                    <MenuItem Command="{NavigateTo ModuleF/Views/ViewA}" Header="模块F" />
+                </MenuItem>
                 <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
                 <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
                 <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
                 <MenuItem Command="{NavigateTo ModuleD/Views/ViewA}" Header="模块D" />
                 <MenuItem Command="{NavigateTo ModuleE/Views/ViewA}" Header="模块E" />
-            </MenuItem>
-            <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
-            <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
-            <MenuItem Command="{NavigateTo ModuleC/Views/ViewA}" Header="模块C" />
-            <MenuItem Command="{NavigateTo ModuleD/Views/ViewA}" Header="模块D" />
-            <MenuItem Command="{NavigateTo ModuleE/Views/ViewA}" Header="模块E" />
-        </Menu>
-        <RegionBrowser Grid.Row="1" prism:RegionManager.RegionName="ContentRegion">
-            <RegionBrowser.ContentContainerStyle>
-                <Style TargetType="ContentControl">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ContentControl">
-                                <TransitionerBox Content="{TemplateBinding Content}" TransitionWipe="{LocalCustomWipe}" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </RegionBrowser.ContentContainerStyle>
-        </RegionBrowser>
-    </Grid>
+                <MenuItem Command="{NavigateTo ModuleF/Views/ViewA}" Header="模块F" />
+            </Menu>
+            <Border Grid.Row="1" Background="Red">
+                <RegionBrowser x:Name="rb" prism:RegionManager.RegionName="ContentRegion">
+                    <RegionBrowser.ContentTemplate>
+                        <DataTemplate>
+                            <TransitionerBox Content="{Binding}" TransitionWipe="{LocalCustomWipe Kind=FadeInWipe}"/>
+                        </DataTemplate>
+                    </RegionBrowser.ContentTemplate>
+                </RegionBrowser>
+            </Border>
+        </Grid>
+    </Border>
+
 </Window>
