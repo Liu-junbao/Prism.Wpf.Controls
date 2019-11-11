@@ -59,6 +59,9 @@ namespace Prism.Controls
         private static readonly DependencyPropertyKey ViewsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(Views), typeof(IEnumerable), typeof(RegionBrowser), new PropertyMetadata(null));
         public static readonly DependencyProperty ViewsProperty = ViewsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty OrientationProperty =
+          DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(RegionBrowser), new PropertyMetadata(Orientation.Horizontal));
+
         static RegionBrowser()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RegionBrowser), new FrameworkPropertyMetadata(typeof(RegionBrowser)));
@@ -77,6 +80,11 @@ namespace Prism.Controls
         {
             get { return (IEnumerable)GetValue(ViewsProperty); }
             protected set { SetValue(ViewsPropertyKey, value); }
+        }
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
         }
         private void ApplyRegion()
         {

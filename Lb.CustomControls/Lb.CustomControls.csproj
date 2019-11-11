@@ -5,6 +5,10 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>Lb.CustomControls</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors />
+    <Company />
+    <Product>Lb.CustomControls</Product>
+    <Description>Wpf自定义控件库</Description>
   </PropertyGroup>
 
   <ItemGroup>

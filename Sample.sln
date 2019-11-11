@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lb.CustomControls", "Lb.Cus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleE", "ModuleE\ModuleE.csproj", "{6223B9DC-2897-468A-AF40-5CD49472785A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleF", "ModuleF\ModuleF.csproj", "{F9939CE5-7E99-4471-978C-83BF9C12CFAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleF", "ModuleF\ModuleF.csproj", "{F9939CE5-7E99-4471-978C-83BF9C12CFAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlankCoreApp2", "BlankCoreApp2\BlankCoreApp2.csproj", "{7160CD41-7205-4695-9C16-033863447749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{F9939CE5-7E99-4471-978C-83BF9C12CFAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9939CE5-7E99-4471-978C-83BF9C12CFAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9939CE5-7E99-4471-978C-83BF9C12CFAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7160CD41-7205-4695-9C16-033863447749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7160CD41-7205-4695-9C16-033863447749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7160CD41-7205-4695-9C16-033863447749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7160CD41-7205-4695-9C16-033863447749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

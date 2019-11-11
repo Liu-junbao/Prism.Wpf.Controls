@@ -6,6 +6,17 @@
     <AssemblyName>Sample</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\books.png" />
+    <None Remove="Images\books32.png" />
+    <None Remove="Images\copy.png" />
+    <None Remove="Images\cut.png" />
+    <None Remove="Images\grid.png" />
+    <None Remove="Images\list.png" />
+    <None Remove="Images\one.png" />
+    <None Remove="Images\paste.png" />
+    <None Remove="Images\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Prism.Unity" Version="7.2.0.1367" />
   </ItemGroup>
   <ItemGroup>
@@ -17,5 +28,16 @@
     <ProjectReference Include="..\ModuleE\ModuleE.csproj" />
     <ProjectReference Include="..\ModuleF\ModuleF.csproj" />
     <ProjectReference Include="..\Prism.Wpf.Controls\Prism.Wpf.Controls.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\books.png" />
+    <Resource Include="Images\books32.png" />
+    <Resource Include="Images\copy.png" />
+    <Resource Include="Images\cut.png" />
+    <Resource Include="Images\grid.png" />
+    <Resource Include="Images\list.png" />
+    <Resource Include="Images\one.png" />
+    <Resource Include="Images\paste.png" />
+    <Resource Include="Images\undo.png" />
   </ItemGroup>
 </Project>

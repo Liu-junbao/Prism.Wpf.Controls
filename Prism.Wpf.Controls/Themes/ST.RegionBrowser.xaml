@@ -395,6 +395,48 @@
         </Setter>
     </Style>
 
+    <Style x:Key="st.ListBox.Header.Vertical" TargetType="ListBox">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource st.ListBoxItem.Header}" />
+        <Setter Property="ItemTemplate" Value="{StaticResource dt.RegionBrowser.Header}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Border Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer
+                                x:Name="sv"
+                                HorizontalScrollBarVisibility="Disabled"
+                                Template="{StaticResource st.ScrollViewer.Header}"
+                                VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                            <ComboBox
+                                Grid.Row="1"
+                                Height="32"
+                                ItemTemplate="{StaticResource dt.RegionBrowser.Header}"
+                                ItemsSource="{TemplateBinding ItemsSource}"
+                                SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource TemplatedParent}}"
+                                Style="{StaticResource st.ComboBox.HeaderPup}"
+                                Visibility="{Binding ElementName=sv, Path=ComputedVerticalScrollBarVisibility}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="st.RegionBrowser" TargetType="local:RegionBrowser">
         <Setter Property="Padding" Value="3" />
         <Setter Property="Background" Value="{StaticResource br.RegionBrowser.Background}" />
@@ -426,6 +468,36 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="local:RegionBrowser">
+                            <Border Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ListBox
+                                        x:Name="PART_Header"
+                                        ItemsSource="{TemplateBinding Views}"
+                                        SelectedItem="{TemplateBinding Content}"
+                                        Style="{StaticResource st.ListBox.Header.Vertical}" />
+                                    <Border Grid.Column="1" Background="{StaticResource br.RegionBrowser.ContentBackground}">
+                                        <ContentPresenter
+                                            Margin="{TemplateBinding Padding}"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
