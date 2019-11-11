@@ -2,17 +2,21 @@
     x:Class="Sample.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Sample.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
-    prism:ViewModelLocator.AutoWireViewModel="True">
+    d:DesignHeight="170.27"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
     <Border Background="Black">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Menu Margin="0" Background="#FFCCCCCC">
+            <Menu Background="#FFCCCCCC">
                 <MenuItem Header="模块列表">
                     <MenuItem Command="{NavigateTo ModuleA/Views/ViewA}" Header="模块A" />
                     <MenuItem Command="{NavigateTo ModuleB/Views/ViewA}" Header="模块B" />
@@ -29,7 +33,10 @@
                 <MenuItem Command="{NavigateTo ModuleF/Views/ViewA}" Header="模块F" />
             </Menu>
             <Border Grid.Row="1" Background="Red">
-                <RegionBrowser x:Name="rb" prism:RegionManager.RegionName="ContentRegion" Orientation="Horizontal">
+                <RegionBrowser
+                    x:Name="rb"
+                    prism:RegionManager.RegionName="ContentRegion"
+                    Orientation="Horizontal">
                     <RegionBrowser.ContentTemplate>
                         <DataTemplate>
                             <TransitionerBox Content="{Binding}" TransitionWipe="{LocalCustomWipe Kind=FadeInWipe}" />

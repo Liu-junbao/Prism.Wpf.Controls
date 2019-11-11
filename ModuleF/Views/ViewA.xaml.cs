@@ -1,4 +1,5 @@
 ﻿using Lb.CustomControls.Charts;
+using Prism;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +21,7 @@ namespace ModuleF.Views
     /// <summary>
     /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class ViewA : UserControl
+    public partial class ViewA : UserControl,IActiveAware
     {
         public ViewA()
         {
@@ -28,33 +29,34 @@ namespace ModuleF.Views
 
             InitializeLines();
         }
+
+        public bool IsActive { get; set; }
+        public event EventHandler IsActiveChanged;
         private void InitializeLines()
         {
-            PerformanceCounter cpuCounter = new PerformanceCounter();
-            cpuCounter = new PerformanceCounter();
-            cpuCounter.CategoryName = "Processor";
-            cpuCounter.CounterName = "% Processor Time";
-            cpuCounter.InstanceName = "_Total";
-            cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            PerformanceCounter cpu = new PerformanceCounter();
+            cpu = new PerformanceCounter();
+            cpu.CategoryName = "Processor";
+            cpu.CounterName = "% Processor Time";
+            cpu.InstanceName = "_Total";
+            cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
             var lg = new LineGraph();
             lines.Children.Add(lg);
             lg.Stroke = new SolidColorBrush(Colors.YellowGreen);
             lg.Description = "CPU";
             lg.StrokeThickness = 2;
-            RunLineAsync(lg,cpuCounter,0,new List<double>(),new List<double>());
+            RunLineAsync(lg,cpu,0,new List<double>(),new List<double>());
         }
-        private async void RunLineAsync(LineGraph line, PerformanceCounter cupCounter, int index, List<double> x, List<double> y)
+        private async void RunLineAsync(LineGraph line, PerformanceCounter cpu, int index, List<double> x, List<double> y)
         {
             index++;
             x.Add(index);
-            y.Add(cupCounter.NextValue());
+            y.Add(cpu.NextValue());
             line.Plot(x, y);
             await Task.Delay(100);
-            RunLineAsync(line, cupCounter, index, x, y);
+            RunLineAsync(line, cpu, index, x, y);
         }
     }
-
-
 
     public class VisibilityToCheckedConverter : IValueConverter
     {

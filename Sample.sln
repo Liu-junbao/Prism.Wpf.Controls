@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
+# Blend for Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleA", "ModuleA\ModuleA.csproj", "{309C1EE1-EA98-491E-A409-734A6DA23C87}"
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleE", "ModuleE\ModuleE.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModuleF", "ModuleF\ModuleF.csproj", "{F9939CE5-7E99-4471-978C-83BF9C12CFAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlankCoreApp2", "BlankCoreApp2\BlankCoreApp2.csproj", "{7160CD41-7205-4695-9C16-033863447749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlankCoreApp2", "BlankCoreApp2\BlankCoreApp2.csproj", "{7160CD41-7205-4695-9C16-033863447749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
